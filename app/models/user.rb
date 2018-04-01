@@ -6,4 +6,5 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },#formatというオプションを指定
                     uniqueness: { case_sensitive: false }#メールアドレスの一意性を検証する,大文字小文字を無視する case_sensitiveオプション
                     has_secure_password#Userモデルにhas_secure_passwordを追加する
+                    validates :password, presence: true, length: { minimum: 6 }
 end
