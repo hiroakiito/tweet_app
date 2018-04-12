@@ -7,4 +7,11 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }#メールアドレスの一意性を検証する,大文字小文字を無視する case_sensitiveオプション
                     has_secure_password#Userモデルにhas_secure_passwordを追加する
                     validates :password, presence: true, length: { minimum: 6 }
+                    
+  # 渡された文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
